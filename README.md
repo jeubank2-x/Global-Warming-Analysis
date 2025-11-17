@@ -2,5 +2,5 @@
 
 **Key Skills:** Data Wrangling, Statistical Modeling 
 **Tools:** RStudio, Tidyverse
-[View it live] (https://jeubank2-x.github.io/global-warming-project)**
+[View Project](https://jeubank2-x.github.io/Global-Warming-Analysis)**
 ---
