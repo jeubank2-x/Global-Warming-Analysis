@@ -1,0 +1,85 @@
+
+# Loading packages
+```{r}
+library(tidyverse)
+library(readxl)
+library(ggplot2)
+library(dplyr)
+library(readr)
+
+```
+
+# Importing the Excel file
+
+```{r}
+g_warming_data <- read.csv("~/Downloads/global_warming_data.csv")
+```
+
+# Viewing the data
+```{r}
+head(g_warming_data)
+```
+
+# Summary of the data
+```{r}
+summary(g_warming_data)
+```
+
+
+
+# Fitting linear regression model
+```{r}
+model <- lm(`Temp.Change` ~ `Total.Emissions`, data = g_warming_data)
+```
+
+# View model summary
+```{r}
+summary(model)
+```
+
+
+# Scatter plot with trend line
+```{r}
+ggplot(g_warming_data, aes(x = `Total.Emissions`, y = `Temp.Change`)) +
+  geom_point(color = "blue") +
+  geom_smooth(method = "lm", se = FALSE, color = "purple") +
+  labs(title = "Relationship Between Total CO2 Emissions and Global Temperature",
+       x = "CO2 Emissions", y = "Temperature Change (°C)") +
+  theme_minimal()
+
+```
+
+# Extracting residuals and fitted values
+```{r}
+residuals <- resid(model)
+fitted <- fitted(model)
+```
+
+
+# Residuals vs. Fitted Values
+```{r}
+plot(fitted, residuals,
+     main = "Residuals vs. Fitted Values",
+     xlab = "Fitted Values", ylab = "Residuals",
+     pch = 19, col = "blue")
+abline(h = 0, col = "purple", lty = 2)
+
+```
+
+# Normal Q-Q Plot
+```{r}
+qqnorm(residuals, main = "Normal Q-Q Plot of Residuals")
+qqline(residuals, col = "purple", lwd = 2)
+```
+
+
+#statistical inferences on the model
+```{r}
+anova(model)
+
+confint(model, level = 0.95)
+```
+
+
+
+
